@@ -2,6 +2,7 @@ from crawler import duty
 from crawler import hnhn
 from crawler import remon
 from crawler import modern
+from crawler import vorakim
 
 class CrawlerMain:
     def __init__(self):
@@ -18,7 +19,10 @@ class CrawlerMain:
     def modern_main(self):
         modern.modern_able().call_url("https://www.the-modernable.com/goods/goods_list.php?cateCd=001")
         return
+
+    def vorakim_main(self):
+        vorakim.vorakim().call_url("http://www.vorakim.com/product/list.html?cate_no=65")
 if __name__ == '__main__':
     app = CrawlerMain()
-    app.modern_main()
+    app.vorakim_main()
 

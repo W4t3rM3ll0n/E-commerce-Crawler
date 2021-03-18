@@ -20,11 +20,11 @@ class Crawling:
         
         '''
         try:
-            os.mkdir('img')
-            os.mkdir(f"img/{collection_name}")
+            os.makedirs('img', exist_ok=True)
+            os.makedirs(f"img/{collection_name}", exist_ok=True)
             path = f"img/{collection_name}/"
-            os.mkdir(f"{path}img")
-            os.mkdir(f"{path}detail_img")
+            os.makedirs(f"{path}img", exist_ok=True)
+            os.makedirs(f"{path}detail_img", exist_ok=True)
         except Exception as e:
             self.logger.error(e)
             pass

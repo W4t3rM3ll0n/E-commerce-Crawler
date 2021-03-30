@@ -46,33 +46,25 @@ class vorakim(Crawling):
             img = get_imgurl.split('/')[-1]
             img_path = f"img/vorakim/img/{img}"
 
-            # self.save_file(img_path,content_imgurl)
+            self.save_file(img_path,content_imgurl)
 
             get_center = soup_suburl.find('div',{'id':'prdDetail'})
             get_color = get_center.find_all('img')
+            return_detaillist = list()
+            for detailimg_list in get_color:
+                sub_detailimg = detailimg_list.get('src')
+                detail_img = sub_detailimg.split('/')[-1]
+                detailimg_path = f"img/vorakim/detail_img{detail_img}"
+                detailimg_url = f"http://www.vorakim.com/{sub_detailimg}"
+                content_detailimg = self.s.get(detailimg_url).content
+                return_detaillist.append(detail_img)
+                self.save_file(detailimg_path,content_detailimg)
+            dict_data = {'product_name':get_name,'price':get_price,'img_path':img_path,'detail_img':return_detaillist}
+            return_sublist
 
 
-            detail_list = list()
-            detail_path = list()
-            for get_detailurl in get_color:
-                get_detaillist =list()
-                if get_detailurl.get('src'):
-                    get_detaillist = f"http://www.vorakim.com{get_detailurl.get('src')}"
-                    detail_list.append(get_detaillist)
-                else:
-                    pass
-                for detail_url in detail_list:
-                    # TODO: have to fix get detail img 
-                    detailpath_list = list()
-                    detail_img = detail_url.split('/')[-1]
 
-                    detailimg_path = f"img/vorakim/detail_img/{detail_img}"
-                    content_detailurl = self.s.get(detail_url).content
-                    self.save_file(detailimg_path,content_detailurl)
-                    detailpath_list.append(detailimg_path)
-            dict_data = {'product_name':get_name,'product_price':get_price,'imgpath':img_path,'detail_img':detailpath_list}
-            return_sublist.append(dict_data)
-        return return_sublist
+
 
 
 

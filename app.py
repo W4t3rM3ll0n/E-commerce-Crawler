@@ -3,7 +3,7 @@ from crawler import hnhn
 from crawler import remon
 from crawler import modern
 from crawler import vorakim
-
+import argparse
 class CrawlerMain:
     def __init__(self):
         return
@@ -11,7 +11,7 @@ class CrawlerMain:
         duty.DutyFun().call_fun()
         return
     def hnhn_main(self):
-        hnhn.hnhn().call_url("http://www.hn-hn.co.kr/shop/shopbrand.html?xcode=008&type=Y")
+        hnhn.Hnhn().call_url("http://www.hn-hn.co.kr/shop/shopbrand.html?xcode=008&type=Y")
         return
     def remon_main(self):
         remon.ReMon().call_url()
@@ -25,4 +25,16 @@ class CrawlerMain:
 if __name__ == '__main__':
     app = CrawlerMain()
     app.vorakim_main()
-
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--url', required=True, help='사이트 이름')
+    args = parser.parse_args()
+    if args.url == 'hnhn':
+        app.hnhn_main()
+    if args.url == 'remon':
+        app.remon_main()
+    if args.url == 'modern':
+        app.modern_main()
+    if args.url == 'vorakim':
+        app.vorakim_main()
+    if args.url == 'duty':
+        app.duty_main()

@@ -54,13 +54,14 @@ class vorakim(Crawling):
             for detailimg_list in get_color:
                 sub_detailimg = detailimg_list.get('src')
                 detail_img = sub_detailimg.split('/')[-1]
-                detailimg_path = f"img/vorakim/detail_img{detail_img}"
+                detailimg_path = f"img/vorakim/detail_img/{detail_img}"
                 detailimg_url = f"http://www.vorakim.com/{sub_detailimg}"
                 content_detailimg = self.s.get(detailimg_url).content
                 return_detaillist.append(detail_img)
                 self.save_file(detailimg_path,content_detailimg)
-            dict_data = {'product_name':get_name,'price':get_price,'img_path':img_path,'detail_img':return_detaillist}
-            return_sublist
+                dict_data = {'product_name':get_name,'price':get_price,'img_path':img_path,'detail_img':return_detaillist}
+                return_sublist.append(dict_data)
+        return return_sublist
 
 
 
